@@ -10,11 +10,11 @@ class Transaction : public QObject
     Q_OBJECT
 
     Q_PROPERTY(qreal cost MEMBER cost NOTIFY costChanged)
-    Q_PROPERTY(QDateTime time MEMBER cost NOTIFY timeChanged)
-    Q_PROPERTY(QString account MEMBER cost NOTIFY accountChanged)
-    Q_PROPERTY(QString currency MEMBER cost NOTIFY currencyChanged)
-    Q_PROPERTY(QString text MEMBER cost NOTIFY textChanged)
-    Q_PROPERTY(QString category MEMBER cost NOTIFY categoryChanged)
+    Q_PROPERTY(QDateTime time MEMBER time NOTIFY timeChanged)
+    Q_PROPERTY(QString account MEMBER account NOTIFY accountChanged)
+    Q_PROPERTY(QString currency MEMBER currency NOTIFY currencyChanged)
+    Q_PROPERTY(QString text MEMBER text NOTIFY textChanged)
+    Q_PROPERTY(QString category MEMBER category NOTIFY categoryChanged)
 
 public:
     QDateTime time;
