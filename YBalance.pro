@@ -5,7 +5,9 @@ QT += quick
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        source/main.cpp
+        source/datastorage/datastorage.cpp \
+        source/main.cpp \
+        source/transactions/transactionmanager.cpp
 
 RESOURCES += qml.qrc
 
@@ -14,6 +16,7 @@ TRANSLATIONS += \
 
 CONFIG += lrelease
 CONFIG += embed_translations
+CONFIG += c++11 c++14 c++17
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -27,4 +30,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    source/transactions/transaction.h
+    source/datastorage/datastorage.h \
+    source/datastorage/idatastorage.h \
+    source/transactions/itransactionsmanager.h \
+    source/transactions/transaction.h \
+    source/transactions/transactionmanager.h

@@ -9,6 +9,7 @@ class Transaction : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(int id MEMBER id NOTIFY allChanged)
     Q_PROPERTY(qreal cost MEMBER cost NOTIFY costChanged)
     Q_PROPERTY(QDateTime time MEMBER time NOTIFY timeChanged)
     Q_PROPERTY(QString account MEMBER account NOTIFY accountChanged)
@@ -17,6 +18,11 @@ class Transaction : public QObject
     Q_PROPERTY(QString category MEMBER category NOTIFY categoryChanged)
 
 public:
+    explicit Transaction(QObject *parent = nullptr)
+        :QObject(parent)
+    {};
+    virtual ~Transaction(){}
+
     QDateTime time;
 
     qreal cost = 0;
@@ -25,6 +31,8 @@ public:
     QString currency;
     QString text;
     QString category;
+
+    int id = 0;
 
 signals:
     void accountChanged();
