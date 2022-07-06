@@ -132,7 +132,7 @@ bool TransactionManager::updateRecords(const QDateTime &from, const QDateTime &t
     return false;
 }
 
-TransactionManager::TransactionManager(IDataStorage* dataStorage) :
+TransactionManager::TransactionManager(ITransaction* dataStorage) :
     QObject(nullptr),
     m_dataStorage(dataStorage)
 {

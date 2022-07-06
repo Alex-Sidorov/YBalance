@@ -1,13 +1,13 @@
 #ifndef DATASTORAGE_H
 #define DATASTORAGE_H
 
-#include "idatastorage.h"
+#include "itransaction.h"
 
 #include <QList>
 #include <QSharedPointer>
 #include <QHash>
 
-class DataStorage : public IDataStorage
+class DataStorage : public ITransaction
 {
 public:
 

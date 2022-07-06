@@ -6,7 +6,7 @@
 #include <QHash>
 #include <QSharedPointer>
 
-#include "../datastorage/idatastorage.h"
+#include "../datastorage/itransaction.h"
 #include "itransactionsmanager.h"
 
 class TransactionManager : public QObject, public ITransactionsManager
@@ -44,7 +44,7 @@ public:
     QList<QSharedPointer<Transaction>> getIncomeTransactions() const;
     QList<QSharedPointer<Transaction>> getExpensesTransactions() const;
 
-    TransactionManager(IDataStorage* dataStorage = nullptr);
+    TransactionManager(ITransaction* dataStorage = nullptr);
     virtual ~TransactionManager();
 
 signals:
@@ -54,7 +54,7 @@ private:
     QHash<QString, QList<QSharedPointer<Transaction>>> m_expensesTransactions;
     QHash<QString, QList<QSharedPointer<Transaction>>> m_incomeTransactions;
     QHash<QString, QList<QSharedPointer<Transaction>>> m_mergeTransactions;
-    IDataStorage* m_dataStorage = nullptr;
+    ITransaction* m_dataStorage = nullptr;
 
     QString m_currentCategory;
 

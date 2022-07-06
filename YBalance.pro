@@ -30,8 +30,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    source/accounts/account.h \
     source/datastorage/datastorage.h \
-    source/datastorage/idatastorage.h \
+    source/datastorage/iaccount.h \
+    source/datastorage/itransaction.h \
     source/transactions/itransactionsmanager.h \
     source/transactions/transaction.h \
-    source/transactions/transactionmanager.h
+    source/transactions/transactionmanager.h \
+    source/accounts/iaccountmanager.h
