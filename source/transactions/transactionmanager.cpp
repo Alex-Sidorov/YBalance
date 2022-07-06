@@ -5,7 +5,7 @@ int TransactionManager::addTransaction(const QString &category,
                                        const QDateTime &date,
                                        const QString &text,
                                        const qreal &cost,
-                                       const QString &currency)
+                                       bool isIncome)
 {
     int id = -1;
     if(m_dataStorage)
@@ -16,31 +16,38 @@ int TransactionManager::addTransaction(const QString &category,
         newTransaction->account = account;
         newTransaction->text = text;
         newTransaction->cost = cost;
-        newTransaction->currency = currency;
+        newTransaction->isIncome = isIncome;
 
         id = m_dataStorage->addTransaction(newTransaction);
         if(id > 0)
         {
             newTransaction->id = id;
-            m_transactions[category].append(newTransaction);
+            if(isIncome)
+                m_incomeTransactions[category].append(newTransaction);
+            else
+                m_expensesTransactions[category].append(newTransaction);
+
+            m_mergeTransactions[category].append(newTransaction);
         }
     }
     return id;
 }
 
-bool TransactionManager::removeTransaction(const QString &category, int id)
+bool TransactionManager::removeTransaction(const QString &category, bool isIncome, int id)
 {
-    if(m_transactions.contains(category) && m_dataStorage)
+    auto &transactions = isIncome ? m_incomeTransactions : m_expensesTransactions;
+    if(transactions.contains(category) && m_dataStorage)
     {
-        if(!m_dataStorage->removeTransaction(id))
+        if(!m_dataStorage->removeTransaction(id, isIncome))
             return false;
 
-
-        auto &list = m_transactions[category];
+        auto &list = transactions[category];
         for(int i = 0; i < list.size(); ++i)
         {
             if(list[i]->id == id)
             {
+                auto &fullList = m_mergeTransactions[category];
+                fullList.removeAll(list[i]);
                 list.removeAt(i);
                 return true;
             }
@@ -49,36 +56,65 @@ bool TransactionManager::removeTransaction(const QString &category, int id)
     return false;
 }
 
-QList<QSharedPointer<Transaction>> TransactionManager::getTransactions(const QString &category) const
+QList<QSharedPointer<Transaction> > TransactionManager::getIncomeTransactions(const QString &category) const
 {
-    return m_transactions.contains(category) ? m_transactions[category] : QList<QSharedPointer<Transaction>>();;
+    return getTransactions(category, true);
 }
 
-bool TransactionManager::updateTransaction(int id, const QString &category, const QString &account, const QDateTime &date, const QString &text, const qreal &cost, const QString &currency)
+QList<QSharedPointer<Transaction> > TransactionManager::getExpensesTransactions(const QString &category) const
 {
-    if(m_transactions.contains(category) && m_dataStorage)
-    {
-        QSharedPointer<Transaction> transcation;
+    return getTransactions(category, false);
+}
 
-        auto &list = m_transactions[category];
+QList<QSharedPointer<Transaction> > TransactionManager::getIncomeTransactions() const
+{
+    return getTransactions(m_currentCategory, true);
+}
+
+QList<QSharedPointer<Transaction> > TransactionManager::getExpensesTransactions() const
+{
+    return getTransactions(m_currentCategory, true);
+}
+
+QList<QSharedPointer<Transaction>> TransactionManager::getTransactions(const QString &category, bool isIncome) const
+{
+    if(isIncome)
+        return m_incomeTransactions.contains(category) ? m_incomeTransactions[category] : QList<QSharedPointer<Transaction>>();
+    else
+        return m_expensesTransactions.contains(category) ? m_expensesTransactions[category] : QList<QSharedPointer<Transaction>>();
+}
+
+bool TransactionManager::updateTransaction(int id, const QString &category,
+                                           const QString &account,
+                                           const QDateTime &date,
+                                           const QString &text,
+                                           const qreal &cost,
+                                           bool isIncome)
+{
+    auto &transactions = isIncome ? m_incomeTransactions : m_expensesTransactions;
+    if(transactions.contains(category) && m_dataStorage)
+    {
+        QSharedPointer<Transaction> transaction;
+
+        auto &list = transactions[category];
         for(int i = 0; i < list.size(); ++i)
         {
             if(list[i]->id == id)
             {
-                transcation = list[i];
+                transaction = list[i];
                 break;
             }
         }
 
-        if(!transcation.isNull() && m_dataStorage->updateTransaction(transcation))
+        if(!transaction.isNull() && m_dataStorage->updateTransaction(transaction))
         {
-            transcation->id = id;
-            transcation->time = date;
-            transcation->category = category;
-            transcation->account = account;
-            transcation->text = text;
-            transcation->cost = cost;
-            transcation->currency = currency;
+            transaction->id = id;
+            transaction->time = date;
+            transaction->category = category;
+            transaction->account = account;
+            transaction->text = text;
+            transaction->cost = cost;
+            transaction->isIncome = isIncome;
             return true;
         }
     }
@@ -89,15 +125,11 @@ bool TransactionManager::updateRecords(const QDateTime &from, const QDateTime &t
 {
     if(m_dataStorage)
     {
-        m_transactions = m_dataStorage->getTransactions(from, to);
+        m_incomeTransactions = m_dataStorage->getTransactions(from, to, true);
+        m_expensesTransactions = m_dataStorage->getTransactions(from, to, false);
         return true;
     }
     return false;
-}
-
-QList<QSharedPointer<Transaction> > TransactionManager::getCurrentTransactions() const
-{
-    return getTransactions(m_currentCategory);
 }
 
 TransactionManager::TransactionManager(IDataStorage* dataStorage) :

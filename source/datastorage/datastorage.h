@@ -13,10 +13,14 @@ public:
 
     virtual int addTransaction(QSharedPointer<Transaction> &transaction) override;
     virtual bool updateTransaction(QSharedPointer<Transaction> &transaction) override;
-    virtual bool removeTransaction(int id) override;
+    virtual bool removeTransaction(int id, bool isIncome) override;
 
     virtual QHash<QString, QList<QSharedPointer<Transaction>>> getTransactions(const QDateTime &from,
                                                                                const QDateTime &to) override;
+
+    virtual QHash<QString, QList<QSharedPointer<Transaction>>> getTransactions(const QDateTime &from,
+                                                                               const QDateTime &to,
+                                                                               bool isIncome) override;
 
     DataStorage();
     virtual ~DataStorage();

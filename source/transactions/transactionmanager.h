@@ -14,7 +14,8 @@ class TransactionManager : public QObject, public ITransactionsManager
     Q_OBJECT
 
     Q_PROPERTY(QString currentCategory MEMBER m_currentCategory NOTIFY changedCurrentCategory)
-    Q_PROPERTY(QList<QSharedPointer<Transaction>> currentTransactions READ getCurrentTransactions NOTIFY changedCurrentCategory)
+    Q_PROPERTY(QList<QSharedPointer<Transaction>> incomeTransactions READ getIncomeTransactions NOTIFY changedCurrentCategory)
+    Q_PROPERTY(QList<QSharedPointer<Transaction>> expensesTransactions READ getExpensesTransactions NOTIFY changedCurrentCategory)
 
 public:
 
@@ -23,11 +24,12 @@ public:
                                const QDateTime &date,
                                const QString &text,
                                const qreal &cost,
-                               const QString &currency) override;
+                               bool isIncome) override;
 
-    virtual bool removeTransaction(const QString &category, int id) override;
+    virtual bool removeTransaction(const QString &category, bool isIncome, int id) override;
 
-    virtual QList<QSharedPointer<Transaction>> getTransactions(const QString &category) const override;
+    virtual QList<QSharedPointer<Transaction>> getExpensesTransactions(const QString &category) const override;
+    virtual QList<QSharedPointer<Transaction>> getIncomeTransactions(const QString &category) const override;
 
     virtual bool updateTransaction(int id,
                                    const QString &category,
@@ -35,11 +37,12 @@ public:
                                    const QDateTime &date,
                                    const QString &text,
                                    const qreal &cost,
-                                   const QString &currency) override;
+                                   bool isIncome) override;
 
     bool updateRecords(const QDateTime &from, const QDateTime &to);
 
-    QList<QSharedPointer<Transaction>> getCurrentTransactions() const;
+    QList<QSharedPointer<Transaction>> getIncomeTransactions() const;
+    QList<QSharedPointer<Transaction>> getExpensesTransactions() const;
 
     TransactionManager(IDataStorage* dataStorage = nullptr);
     virtual ~TransactionManager();
@@ -48,10 +51,14 @@ signals:
     void changedCurrentCategory();
 
 private:
-    QHash<QString, QList<QSharedPointer<Transaction>>> m_transactions;
+    QHash<QString, QList<QSharedPointer<Transaction>>> m_expensesTransactions;
+    QHash<QString, QList<QSharedPointer<Transaction>>> m_incomeTransactions;
+    QHash<QString, QList<QSharedPointer<Transaction>>> m_mergeTransactions;
     IDataStorage* m_dataStorage = nullptr;
 
     QString m_currentCategory;
+
+    QList<QSharedPointer<Transaction>> getTransactions(const QString &category, bool isIncome) const;
 };
 
 #endif // TRANSACTIONMANAGER_H

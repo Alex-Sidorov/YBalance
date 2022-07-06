@@ -18,12 +18,6 @@ int main(int argc, char *argv[])
 
     DataStorage data;
     TransactionManager transaction_manager(&data);
-    auto i  = transaction_manager.addTransaction("12","3",QDateTime::currentDateTime(), "f",98.98, "usd");
-    auto i1 = transaction_manager.addTransaction("12","4",QDateTime::currentDateTime(), "5555",9.98, "usd");
-    transaction_manager.addTransaction("333","444",QDateTime::currentDateTime(), "gggg",198.98, "usd");
-    transaction_manager.removeTransaction("12",i);
-    transaction_manager.getTransactions("12");
-    transaction_manager.updateTransaction(i1, "12","3",QDateTime::currentDateTime(), "f",98.98, "usd");
 
     /*QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();

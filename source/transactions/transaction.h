@@ -13,9 +13,10 @@ class Transaction : public QObject
     Q_PROPERTY(qreal cost MEMBER cost NOTIFY costChanged)
     Q_PROPERTY(QDateTime time MEMBER time NOTIFY timeChanged)
     Q_PROPERTY(QString account MEMBER account NOTIFY accountChanged)
-    Q_PROPERTY(QString currency MEMBER currency NOTIFY currencyChanged)
     Q_PROPERTY(QString text MEMBER text NOTIFY textChanged)
     Q_PROPERTY(QString category MEMBER category NOTIFY categoryChanged)
+    Q_PROPERTY(bool isIncome MEMBER isIncome NOTIFY typeChanged)
+
 
 public:
     explicit Transaction(QObject *parent = nullptr)
@@ -28,11 +29,12 @@ public:
     qreal cost = 0;
 
     QString account;
-    QString currency;
     QString text;
     QString category;
 
     int id = 0;
+
+    bool isIncome = true;
 
 signals:
     void accountChanged();
@@ -40,7 +42,7 @@ signals:
     void costChanged();
     void textChanged();
     void categoryChanged();
-    void currencyChanged();
+    void typeChanged();
     void allChanged();
 };
 

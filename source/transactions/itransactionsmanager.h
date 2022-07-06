@@ -14,18 +14,19 @@ public:
                                const QDateTime &date,
                                const QString &text,
                                const qreal &cost,
-                               const QString &currency) = 0;
+                               bool isIncome) = 0;
 
-    virtual bool removeTransaction(const QString &category, int id) = 0;
+    virtual bool removeTransaction(const QString &category, bool isIncome, int id) = 0;
 
-    virtual QList<QSharedPointer<Transaction>> getTransactions(const QString &category) const = 0;
+    virtual QList<QSharedPointer<Transaction>> getIncomeTransactions(const QString &category) const = 0;
+    virtual QList<QSharedPointer<Transaction>> getExpensesTransactions(const QString &category) const = 0;
     virtual bool updateTransaction(int id,
                                    const QString &category,
                                    const QString &account,
                                    const QDateTime &date,
                                    const QString &text,
                                    const qreal &cost,
-                                   const QString &currency) = 0;
+                                   bool isIncome) = 0;
 
     virtual ~ITransactionsManager(){}
 };
