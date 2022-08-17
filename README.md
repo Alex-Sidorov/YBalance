@@ -1,4 +1,4 @@
 ## YBalance
-*Money manager
+Money manager
 
 Qt + QML 5.15.0 
