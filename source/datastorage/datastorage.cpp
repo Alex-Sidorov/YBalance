@@ -29,6 +29,31 @@ QHash<QString, QList<QSharedPointer<Transaction>>> DataStorage::getTransactions(
     return QHash<QString, QList<QSharedPointer<Transaction>>>();
 }
 
+bool DataStorage::readAccounts(QPair<QList<QSharedPointer<Account> > *, QHash<int, QSharedPointer<Account> > *> &accounts)
+{
+
+}
+
+bool DataStorage::addAccount(Account *account)
+{
+
+}
+
+bool DataStorage::updateAccount(int id, const qreal amount, const QString &name, const QString &currency, const QString &icon, const QString &color, AccountType::Type type)
+{
+
+}
+
+bool DataStorage::removeAccount(int id)
+{
+
+}
+
+bool DataStorage::updateAmount(int id, qreal amount)
+{
+
+}
+
 DataStorage::DataStorage()
 {}
 

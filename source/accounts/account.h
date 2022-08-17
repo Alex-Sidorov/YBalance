@@ -42,6 +42,7 @@ public:
     explicit Account(QObject *parent = nullptr)
         :QObject(parent)
     {};
+
     virtual ~Account(){}
 
     QDateTime time;

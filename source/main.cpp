@@ -4,6 +4,7 @@
 #include "accounts/account.h"
 #include "transactions/transaction.h"
 #include "transactions/transactionmanager.h"
+#include "accounts/accountmanager.h"
 #include "datastorage/datastorage.h"
 //#include <QLocale>
 //#include <QTranslator>
@@ -16,10 +17,12 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     qmlRegisterType<AccountType>("AccountType", 1, 0, "AccountType");
+    qmlRegisterAnonymousType<Account>("Account",1);
     qmlRegisterAnonymousType<Transaction>("Transaction",1);
 
     DataStorage data;
     TransactionManager transaction_manager(&data);
+    AccountManager accounts_manager(&data);
 
     /*QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();

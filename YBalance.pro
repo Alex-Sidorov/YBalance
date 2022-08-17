@@ -1,10 +1,12 @@
-QT += quick
+QT += quick \
+    widgets
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        source/accounts/accountmanager.cpp \
         source/datastorage/datastorage.cpp \
         source/main.cpp \
         source/transactions/transactionmanager.cpp
@@ -31,6 +33,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     source/accounts/account.h \
+    source/accounts/accountmanager.h \
     source/datastorage/datastorage.h \
     source/datastorage/iaccount.h \
     source/datastorage/itransaction.h \
