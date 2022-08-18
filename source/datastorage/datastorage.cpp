@@ -6,12 +6,17 @@ int DataStorage::addTransaction(QSharedPointer<Transaction> &transaction)
     return temp++;
 }
 
-bool DataStorage::updateTransaction(QSharedPointer<Transaction> &transaction)
+bool DataStorage::updateTransaction(int id, const QString &category,
+                                    const QString &account,
+                                    const QDateTime &date,
+                                    const QString &text,
+                                    const qreal &cost,
+                                    bool isIncome)
 {
     return true;
 }
 
-bool DataStorage::removeTransaction(int id, bool isIncome)
+bool DataStorage::removeTransaction(int id)
 {
     return true;
 }
@@ -29,7 +34,7 @@ QHash<QString, QList<QSharedPointer<Transaction>>> DataStorage::getTransactions(
     return QHash<QString, QList<QSharedPointer<Transaction>>>();
 }
 
-bool DataStorage::readAccounts(QPair<QList<QSharedPointer<Account> > *, QHash<int, QSharedPointer<Account> > *> &accounts)
+bool DataStorage::readAccounts(QPair<AccountsList*, AccountsHash*> &accounts)
 {
 
 }

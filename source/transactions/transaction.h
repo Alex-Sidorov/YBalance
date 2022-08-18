@@ -9,32 +9,49 @@ class Transaction : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(int id MEMBER id NOTIFY allChanged)
-    Q_PROPERTY(qreal cost MEMBER cost NOTIFY costChanged)
-    Q_PROPERTY(QDateTime time MEMBER time NOTIFY timeChanged)
-    Q_PROPERTY(QString account MEMBER account NOTIFY accountChanged)
-    Q_PROPERTY(QString text MEMBER text NOTIFY textChanged)
-    Q_PROPERTY(QString category MEMBER category NOTIFY categoryChanged)
-    Q_PROPERTY(bool isIncome MEMBER isIncome NOTIFY typeChanged)
+    Q_PROPERTY(int id MEMBER m_id NOTIFY allChanged)
+    Q_PROPERTY(qreal cost MEMBER m_cost NOTIFY costChanged)
+    Q_PROPERTY(QDateTime time MEMBER m_time NOTIFY timeChanged)
+    Q_PROPERTY(QString account MEMBER m_account NOTIFY accountChanged)
+    Q_PROPERTY(QString text MEMBER m_text NOTIFY textChanged)
+    Q_PROPERTY(QString category MEMBER m_category NOTIFY categoryChanged)
+    Q_PROPERTY(bool isIncome MEMBER m_isIncome NOTIFY typeChanged)
 
 
 public:
     explicit Transaction(QObject *parent = nullptr)
         :QObject(parent)
     {};
+
+    Transaction(const QString &category,
+                const QString &account,
+                const QDateTime &date,
+                const QString &text,
+                const qreal &cost,
+                bool isIncome,
+                QObject *parent = nullptr)
+        :QObject(parent),
+        m_time(date),
+        m_cost(cost),
+        m_account(account),
+        m_text(text),
+        m_category(category),
+        m_isIncome(isIncome)
+        {};
+
     virtual ~Transaction(){}
 
-    QDateTime time;
+    QDateTime m_time;
 
-    qreal cost = 0;
+    qreal m_cost = 0;
 
-    QString account;
-    QString text;
-    QString category;
+    QString m_account;
+    QString m_text;
+    QString m_category;
 
-    int id = 0;
+    int m_id = 0;
 
-    bool isIncome = true;
+    bool m_isIncome = true;
 
 signals:
     void accountChanged();

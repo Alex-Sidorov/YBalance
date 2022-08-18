@@ -10,8 +10,13 @@ class ITransaction
 public:
 
     virtual int addTransaction(QSharedPointer<Transaction> &transaction) = 0;
-    virtual bool updateTransaction(QSharedPointer<Transaction> &transaction) = 0;
-    virtual bool removeTransaction(int id, bool isIncome) = 0;
+    virtual bool updateTransaction(int id, const QString &category,
+                                   const QString &account,
+                                   const QDateTime &date,
+                                   const QString &text,
+                                   const qreal &cost,
+                                   bool isIncome) = 0;
+    virtual bool removeTransaction(int id) = 0;
 
     virtual QHash<QString, QList<QSharedPointer<Transaction>>> getTransactions(const QDateTime &from,
                                                                                const QDateTime &to) = 0;

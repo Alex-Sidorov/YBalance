@@ -28,13 +28,13 @@ class Account : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(int id MEMBER id NOTIFY allChanged)
-    Q_PROPERTY(qreal amount MEMBER amount NOTIFY amountChanged)
-    Q_PROPERTY(QDateTime time MEMBER time NOTIFY timeChanged)
-    Q_PROPERTY(QString name MEMBER name NOTIFY nameChanged)
-    Q_PROPERTY(QString currency MEMBER currency NOTIFY currencyChanged)
-    Q_PROPERTY(QString icon MEMBER icon NOTIFY iconChanged)
-    Q_PROPERTY(QString color MEMBER color NOTIFY colorChanged)
+    Q_PROPERTY(int id MEMBER m_id NOTIFY allChanged)
+    Q_PROPERTY(qreal amount MEMBER m_amount NOTIFY amountChanged)
+    Q_PROPERTY(QDateTime time MEMBER m_time NOTIFY timeChanged)
+    Q_PROPERTY(QString name MEMBER m_name NOTIFY nameChanged)
+    Q_PROPERTY(QString currency MEMBER m_currency NOTIFY currencyChanged)
+    Q_PROPERTY(QString icon MEMBER m_icon NOTIFY iconChanged)
+    Q_PROPERTY(QString color MEMBER m_color NOTIFY colorChanged)
     Q_PROPERTY(int type READ getType NOTIFY typeChanged)
 
 
@@ -43,22 +43,40 @@ public:
         :QObject(parent)
     {};
 
+    Account(const QString &name,
+            const QDateTime &date,
+            const QString &currency,
+            const qreal amount,
+            const QString &icon,
+            const QString &color,
+            AccountType::Type type,
+            QObject *parent = nullptr)
+        :QObject(parent),
+        m_time(date),
+        m_amount(amount),
+        m_name(name),
+        m_currency(currency),
+        m_icon(icon),
+        m_color(color),
+        m_type(type)
+        {};
+
     virtual ~Account(){}
 
-    QDateTime time;
+    QDateTime m_time;
 
-    qreal amount = 0;
+    qreal m_amount = 0;
 
-    QString name;
-    QString currency;
-    QString icon;
-    QString color;
+    QString m_name;
+    QString m_currency;
+    QString m_icon;
+    QString m_color;
 
-    int id = 0;
+    int m_id = 0;
 
-    AccountType::Type type;
+    AccountType::Type m_type;
 
-    int getType() const {return type;}
+    int getType() const {return m_type;}
 
 signals:
     void timeChanged();

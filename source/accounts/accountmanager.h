@@ -43,8 +43,8 @@ public:
     virtual bool subAmount(int id, qreal value) override;
 
 private:
-    QList<QSharedPointer<Account>> m_accounts;
-    QHash<int, QSharedPointer<Account>> m_hashAccounts;
+    IAccount::AccountsList m_accounts;
+    IAccount::AccountsHash m_hashAccounts;
 
     IAccount * m_dataStorage;
 

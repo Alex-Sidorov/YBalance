@@ -10,18 +10,13 @@ int TransactionManager::addTransaction(const QString &category,
     int id = -1;
     if(m_dataStorage)
     {
-        QSharedPointer<Transaction> newTransaction(new Transaction(this));
-        newTransaction->time = date;
-        newTransaction->category = category;
-        newTransaction->account = account;
-        newTransaction->text = text;
-        newTransaction->cost = cost;
-        newTransaction->isIncome = isIncome;
-
+        QSharedPointer<Transaction> newTransaction(new Transaction(category, account,
+                                                                   date, text, cost,
+                                                                   isIncome, this));
         id = m_dataStorage->addTransaction(newTransaction);
-        if(id > 0)
+        if(id >= 0)
         {
-            newTransaction->id = id;
+            newTransaction->m_id = id;
             if(isIncome)
                 m_incomeTransactions[category].append(newTransaction);
             else
@@ -38,13 +33,13 @@ bool TransactionManager::removeTransaction(const QString &category, bool isIncom
     auto &transactions = isIncome ? m_incomeTransactions : m_expensesTransactions;
     if(transactions.contains(category) && m_dataStorage)
     {
-        if(!m_dataStorage->removeTransaction(id, isIncome))
+        if(!m_dataStorage->removeTransaction(id))
             return false;
 
         auto &list = transactions[category];
         for(int i = 0; i < list.size(); ++i)
         {
-            if(list[i]->id == id)
+            if(list[i]->m_id == id)
             {
                 auto &fullList = m_mergeTransactions[category];
                 fullList.removeAll(list[i]);
@@ -99,22 +94,24 @@ bool TransactionManager::updateTransaction(int id, const QString &category,
         auto &list = transactions[category];
         for(int i = 0; i < list.size(); ++i)
         {
-            if(list[i]->id == id)
+            if(list[i]->m_id == id)
             {
                 transaction = list[i];
                 break;
             }
         }
 
-        if(!transaction.isNull() && m_dataStorage->updateTransaction(transaction))
+        if(!transaction.isNull() && m_dataStorage->updateTransaction(id, category,
+                                                                     account, date,
+                                                                     text, cost,
+                                                                     isIncome))
         {
-            transaction->id = id;
-            transaction->time = date;
-            transaction->category = category;
-            transaction->account = account;
-            transaction->text = text;
-            transaction->cost = cost;
-            transaction->isIncome = isIncome;
+            transaction->m_time = date;
+            transaction->m_category = category;
+            transaction->m_account = account;
+            transaction->m_text = text;
+            transaction->m_cost = cost;
+            transaction->m_isIncome = isIncome;
             return true;
         }
     }

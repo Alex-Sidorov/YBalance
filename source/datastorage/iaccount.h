@@ -12,9 +12,12 @@ class IAccount
 {
 public:
 
+    using AccountsList = QList<QSharedPointer<Account>>;
+    using AccountsHash = QHash<int, QSharedPointer<Account>>;
+
     virtual ~IAccount() {}
 
-    virtual bool readAccounts(QPair< QList<QSharedPointer<Account>>*, QHash<int, QSharedPointer<Account>>*> &accounts) = 0;
+    virtual bool readAccounts(QPair< AccountsList*, AccountsHash*> &accounts) = 0;
 
     virtual bool addAccount(Account * account) = 0;
     virtual bool updateAccount(int id, const qreal amount, const QString &name, const QString &currency, const QString &icon, const QString &color, AccountType::Type type) = 0;
