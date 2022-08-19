@@ -5,6 +5,7 @@
 #include <QHash>
 #include <QPair>
 #include <QSharedPointer>
+#include <QDateTime>
 
 #include "../accounts/account.h"
 
@@ -17,10 +18,11 @@ public:
 
     virtual ~IAccount() {}
 
-    virtual bool readAccounts(QPair< AccountsList*, AccountsHash*> &accounts) = 0;
+    virtual bool readAccounts(QPair< AccountsList*, AccountsHash*> &accounts, QObject* parent) = 0;
 
     virtual bool addAccount(Account * account) = 0;
-    virtual bool updateAccount(int id, const qreal amount, const QString &name, const QString &currency, const QString &icon, const QString &color, AccountType::Type type) = 0;
+    virtual bool updateAccount(int id, const qreal amount, const QString &name, const QString &currency,
+                               const QDateTime &date, const QString &icon, const QString &color, AccountType::Type type) = 0;
     virtual bool removeAccount(int id) = 0;
 
     virtual bool updateAmount(int id, qreal amount) = 0;

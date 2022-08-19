@@ -3,16 +3,6 @@
 
 AccountManager::AccountManager(IAccount * dataStorage) : QObject(nullptr), m_dataStorage(dataStorage)
 {
-    if(!m_dataStorage)
-        return;
-
-    auto pair = qMakePair(&m_accounts, &m_hashAccounts);
-
-    auto result = m_dataStorage->readAccounts(pair);
-    if(result)
-        qDebug() << "readed accounts: " << m_accounts.size();
-    else
-        qDebug() << "error reading accounts";
 }
 
 AccountManager::~AccountManager()
@@ -80,7 +70,7 @@ bool AccountManager::updateAccount(int id,
     if(!m_dataStorage || account.isNull())
         return false;
 
-    if(!m_dataStorage->updateAccount(id, amount, name, currency, icon, color, type))
+    if(!m_dataStorage->updateAccount(id, amount, name, currency, account->m_time, icon, color, type))
         return false;
 
     account->m_amount = amount;
@@ -113,6 +103,20 @@ bool AccountManager::subAmount(int id, qreal value)
 
     auto amount = account->m_amount - value;
     return updateAmount(account.data(), amount);
+}
+
+void AccountManager::init()
+{
+    if(!m_dataStorage)
+        return;
+
+    auto pair = qMakePair(&m_accounts, &m_hashAccounts);
+
+    auto result = m_dataStorage->readAccounts(pair, this);
+    if(result)
+        qDebug() << "readed accounts: " << m_accounts.size();
+    else
+        qDebug() << "error reading accounts";
 }
 
 bool AccountManager::updateAmount(Account *account, qreal amount)

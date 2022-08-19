@@ -1,7 +1,7 @@
 #include "transactionmanager.h"
 
-int TransactionManager::addTransaction(const QString &category,
-                                       const QString &account,
+int TransactionManager::addTransaction(int category,
+                                       int account,
                                        const QDateTime &date,
                                        const QString &text,
                                        const qreal &cost,
@@ -28,7 +28,7 @@ int TransactionManager::addTransaction(const QString &category,
     return id;
 }
 
-bool TransactionManager::removeTransaction(const QString &category, bool isIncome, int id)
+bool TransactionManager::removeTransaction(int category, bool isIncome, int id)
 {
     auto &transactions = isIncome ? m_incomeTransactions : m_expensesTransactions;
     if(transactions.contains(category) && m_dataStorage)
@@ -51,12 +51,12 @@ bool TransactionManager::removeTransaction(const QString &category, bool isIncom
     return false;
 }
 
-QList<QSharedPointer<Transaction> > TransactionManager::getIncomeTransactions(const QString &category) const
+QList<QSharedPointer<Transaction> > TransactionManager::getIncomeTransactions(int category) const
 {
     return getTransactions(category, true);
 }
 
-QList<QSharedPointer<Transaction> > TransactionManager::getExpensesTransactions(const QString &category) const
+QList<QSharedPointer<Transaction> > TransactionManager::getExpensesTransactions(int category) const
 {
     return getTransactions(category, false);
 }
@@ -71,7 +71,7 @@ QList<QSharedPointer<Transaction> > TransactionManager::getExpensesTransactions(
     return getTransactions(m_currentCategory, true);
 }
 
-QList<QSharedPointer<Transaction>> TransactionManager::getTransactions(const QString &category, bool isIncome) const
+QList<QSharedPointer<Transaction>> TransactionManager::getTransactions(int category, bool isIncome) const
 {
     if(isIncome)
         return m_incomeTransactions.contains(category) ? m_incomeTransactions[category] : QList<QSharedPointer<Transaction>>();
@@ -79,8 +79,7 @@ QList<QSharedPointer<Transaction>> TransactionManager::getTransactions(const QSt
         return m_expensesTransactions.contains(category) ? m_expensesTransactions[category] : QList<QSharedPointer<Transaction>>();
 }
 
-bool TransactionManager::updateTransaction(int id, const QString &category,
-                                           const QString &account,
+bool TransactionManager::updateTransaction(int id, int category, int account,
                                            const QDateTime &date,
                                            const QString &text,
                                            const qreal &cost,
@@ -122,8 +121,8 @@ bool TransactionManager::updateRecords(const QDateTime &from, const QDateTime &t
 {
     if(m_dataStorage)
     {
-        m_incomeTransactions = m_dataStorage->getTransactions(from, to, true);
-        m_expensesTransactions = m_dataStorage->getTransactions(from, to, false);
+        m_incomeTransactions = m_dataStorage->getTransactions(from, to, true, this);
+        m_expensesTransactions = m_dataStorage->getTransactions(from, to, false, this);
         return true;
     }
     return false;

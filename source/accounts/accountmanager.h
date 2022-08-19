@@ -42,6 +42,8 @@ public:
     virtual bool addAmount(int id, qreal value) override;
     virtual bool subAmount(int id, qreal value) override;
 
+    void init();
+
 private:
     IAccount::AccountsList m_accounts;
     IAccount::AccountsHash m_hashAccounts;

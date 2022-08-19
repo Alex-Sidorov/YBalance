@@ -12,9 +12,9 @@ class Transaction : public QObject
     Q_PROPERTY(int id MEMBER m_id NOTIFY allChanged)
     Q_PROPERTY(qreal cost MEMBER m_cost NOTIFY costChanged)
     Q_PROPERTY(QDateTime time MEMBER m_time NOTIFY timeChanged)
-    Q_PROPERTY(QString account MEMBER m_account NOTIFY accountChanged)
+    Q_PROPERTY(int account MEMBER m_account NOTIFY accountChanged)
     Q_PROPERTY(QString text MEMBER m_text NOTIFY textChanged)
-    Q_PROPERTY(QString category MEMBER m_category NOTIFY categoryChanged)
+    Q_PROPERTY(int category MEMBER m_category NOTIFY categoryChanged)
     Q_PROPERTY(bool isIncome MEMBER m_isIncome NOTIFY typeChanged)
 
 
@@ -23,8 +23,8 @@ public:
         :QObject(parent)
     {};
 
-    Transaction(const QString &category,
-                const QString &account,
+    Transaction(const int category,
+                const int account,
                 const QDateTime &date,
                 const QString &text,
                 const qreal &cost,
@@ -32,9 +32,9 @@ public:
                 QObject *parent = nullptr)
         :QObject(parent),
         m_time(date),
+        m_text(text),
         m_cost(cost),
         m_account(account),
-        m_text(text),
         m_category(category),
         m_isIncome(isIncome)
         {};
@@ -43,11 +43,12 @@ public:
 
     QDateTime m_time;
 
+    QString m_text;
+
     qreal m_cost = 0;
 
-    QString m_account;
-    QString m_text;
-    QString m_category;
+    int m_account;
+    int m_category;
 
     int m_id = 0;
 
