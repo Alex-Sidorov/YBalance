@@ -30,7 +30,6 @@ class Account : public QObject
 
     Q_PROPERTY(int id MEMBER m_id NOTIFY allChanged)
     Q_PROPERTY(qreal amount MEMBER m_amount NOTIFY amountChanged)
-    Q_PROPERTY(QDateTime time MEMBER m_time NOTIFY timeChanged)
     Q_PROPERTY(QString name MEMBER m_name NOTIFY nameChanged)
     Q_PROPERTY(QString currency MEMBER m_currency NOTIFY currencyChanged)
     Q_PROPERTY(QString icon MEMBER m_icon NOTIFY iconChanged)
@@ -44,7 +43,6 @@ public:
     {};
 
     Account(const QString &name,
-            const QDateTime &date,
             const QString &currency,
             const qreal amount,
             const QString &icon,
@@ -52,7 +50,6 @@ public:
             AccountType::Type type,
             QObject *parent = nullptr)
         :QObject(parent),
-        m_time(date),
         m_amount(amount),
         m_name(name),
         m_currency(currency),
@@ -62,8 +59,6 @@ public:
         {};
 
     virtual ~Account(){}
-
-    QDateTime m_time;
 
     qreal m_amount = 0;
 
@@ -79,7 +74,6 @@ public:
     int getType() const {return m_type;}
 
 signals:
-    void timeChanged();
     void amountChanged();
     void nameChanged();
     void currencyChanged();

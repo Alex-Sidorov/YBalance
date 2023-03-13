@@ -8,7 +8,6 @@ class IAccountManager
 public:
 
     virtual int addAccount(const QString &name,
-                           const QDateTime &date,
                            const QString &currency,
                            const qreal amount,
                            const QString &icon,
@@ -17,8 +16,9 @@ public:
 
     virtual bool removeAccount(int id) = 0;
 
-    virtual QList<QSharedPointer<Account>> getAccounts() const = 0;
+    virtual const QList<QSharedPointer<Account>>& getAccounts() const = 0;
     virtual Account* getAccount(int id) const = 0;
+    virtual int countAccounts() const = 0;
 
     virtual bool updateAccount(int id,
                                const qreal amount,

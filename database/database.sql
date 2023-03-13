@@ -18,7 +18,6 @@ CREATE TABLE IF NOT EXISTS "accounts" (
 	"type"	INTEGER NOT NULL,
 	"icon"	TEXT DEFAULT ' ',
 	"color"	INTEGER NOT NULL,
-	"date"	TEXT NOT NULL,
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
 CREATE TABLE IF NOT EXISTS "transactions" (

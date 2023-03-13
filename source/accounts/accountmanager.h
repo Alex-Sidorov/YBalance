@@ -19,7 +19,6 @@ public:
     virtual ~AccountManager();
 
     virtual int addAccount(const QString &name,
-                           const QDateTime &date,
                            const QString &currency,
                            const qreal amount,
                            const QString &icon,
@@ -28,8 +27,9 @@ public:
 
     virtual bool removeAccount(int id) override;
 
-    virtual QList<QSharedPointer<Account>> getAccounts() const override;
+    virtual const QList<QSharedPointer<Account>>& getAccounts() const override;
     virtual Account* getAccount(int id) const override;
+    virtual int countAccounts() const override;
 
     virtual bool updateAccount(int id,
                                const qreal amount,

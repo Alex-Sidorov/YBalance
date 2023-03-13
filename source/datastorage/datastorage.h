@@ -34,7 +34,7 @@ public:
     virtual bool readAccounts(QPair< AccountsList*, AccountsHash*> &accounts, QObject* parent = nullptr) override;
 
     virtual bool addAccount(Account * account) override;
-    virtual bool updateAccount(int id, const qreal amount, const QString &name, const QString &currency, const QDateTime &date,
+    virtual bool updateAccount(int id, const qreal amount, const QString &name, const QString &currency,
                                const QString &icon, const QString &color, AccountType::Type type) override;
     virtual bool removeAccount(int id) override;
 

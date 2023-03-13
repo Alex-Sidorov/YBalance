@@ -3,6 +3,7 @@
 
 AccountManager::AccountManager(IAccount * dataStorage) : QObject(nullptr), m_dataStorage(dataStorage)
 {
+    init();
 }
 
 AccountManager::~AccountManager()
@@ -10,14 +11,13 @@ AccountManager::~AccountManager()
 }
 
 int AccountManager::addAccount(const QString &name,
-                               const QDateTime &date,
                                const QString &currency,
                                const qreal amount,
                                const QString &icon,
                                const QString &color,
                                AccountType::Type type)
 {
-    QSharedPointer<Account> account(new Account(name, date, currency, amount, icon, color, type, this));
+    QSharedPointer<Account> account(new Account(name, currency, amount, icon, color, type, this));
 
     if(m_accounts.size())
         account->m_id = m_accounts.last()->m_id + 1;
@@ -47,7 +47,7 @@ bool AccountManager::removeAccount(int id)
     return true;
 }
 
-QList<QSharedPointer<Account> > AccountManager::getAccounts() const
+const QList<QSharedPointer<Account>>& AccountManager::getAccounts() const
 {
     return m_accounts;
 }
@@ -55,6 +55,11 @@ QList<QSharedPointer<Account> > AccountManager::getAccounts() const
 Account *AccountManager::getAccount(int id) const
 {
     return m_hashAccounts.value(id, QSharedPointer<Account>(nullptr)).data();
+}
+
+int AccountManager::countAccounts() const
+{
+    return m_accounts.size();
 }
 
 bool AccountManager::updateAccount(int id,
@@ -70,7 +75,7 @@ bool AccountManager::updateAccount(int id,
     if(!m_dataStorage || account.isNull())
         return false;
 
-    if(!m_dataStorage->updateAccount(id, amount, name, currency, account->m_time, icon, color, type))
+    if(!m_dataStorage->updateAccount(id, amount, name, currency, icon, color, type))
         return false;
 
     account->m_amount = amount;
