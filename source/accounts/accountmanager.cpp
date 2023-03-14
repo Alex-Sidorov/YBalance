@@ -52,9 +52,9 @@ const QList<QSharedPointer<Account>>& AccountManager::getAccounts() const
     return m_accounts;
 }
 
-Account *AccountManager::getAccount(int id) const
+QSharedPointer<Account> AccountManager::getAccount(int id) const
 {
-    return m_hashAccounts.value(id, QSharedPointer<Account>(nullptr)).data();
+    return m_hashAccounts.value(id, QSharedPointer<Account>(nullptr));
 }
 
 int AccountManager::countAccounts() const

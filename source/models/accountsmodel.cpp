@@ -47,7 +47,7 @@ QHash<int, QByteArray> AccountsModel::roleNames() const
     return m_roleNames;
 }
 
-void AccountsModel::addAccount(QSharedPointer<Account> &account)
+void AccountsModel::addAccount(const QSharedPointer<Account> &account)
 {
     beginInsertRows(QModelIndex(), m_accounts.size(), m_accounts.size());
     m_accounts.push_back(account);

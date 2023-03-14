@@ -17,7 +17,7 @@ public:
     virtual bool removeAccount(int id) = 0;
 
     virtual const QList<QSharedPointer<Account>>& getAccounts() const = 0;
-    virtual Account* getAccount(int id) const = 0;
+    virtual QSharedPointer<Account> getAccount(int id) const = 0;
     virtual int countAccounts() const = 0;
 
     virtual bool updateAccount(int id,

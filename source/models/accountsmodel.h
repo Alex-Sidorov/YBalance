@@ -29,7 +29,7 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     virtual QHash<int, QByteArray> roleNames() const override;
 
-    void addAccount(QSharedPointer<Account> &account);
+    void addAccount(const QSharedPointer<Account> &account);
     void removeAccount(int id);
 
 private:

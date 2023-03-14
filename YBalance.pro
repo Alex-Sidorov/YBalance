@@ -16,6 +16,7 @@ HEADERS += \
     source/datastorage/iaccount.h \
     source/datastorage/itransaction.h \
     source/models/accountsmodel.h \
+    source/models/fullaccountsmodel.h \
     source/transactions/itransactionsmanager.h \
     source/transactions/transaction.h \
     source/transactions/transactionmanager.h \
@@ -26,6 +27,7 @@ SOURCES += \
         source/datastorage/datastorage.cpp \
         source/main.cpp \
         source/models/accountsmodel.cpp \
+        source/models/fullaccountsmodel.cpp \
         source/transactions/transactionmanager.cpp
 
 TRANSLATIONS += \

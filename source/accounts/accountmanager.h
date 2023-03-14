@@ -28,7 +28,7 @@ public:
     virtual bool removeAccount(int id) override;
 
     virtual const QList<QSharedPointer<Account>>& getAccounts() const override;
-    virtual Account* getAccount(int id) const override;
+    virtual QSharedPointer<Account> getAccount(int id) const override;
     virtual int countAccounts() const override;
 
     virtual bool updateAccount(int id,
