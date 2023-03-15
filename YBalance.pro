@@ -1,6 +1,7 @@
 QT += quick \
     widgets \
-    sql    
+    sql    \
+    network
 
 CONFIG += qml_debug
 CONFIG += c++11 c++14 c++17
@@ -12,6 +13,12 @@ CONFIG += c++11 c++14 c++17
 HEADERS += \
     source/accounts/account.h \
     source/accounts/accountmanager.h \
+    source/currency/converter/converterbyrub.h \
+    source/currency/converter/iconverter.h \
+    source/currency/loader/currencyloader.h \
+    source/currency/loader/icurrencyloader.h \
+    source/currency/parser/iparser.h \
+    source/currency/parser/parserfromrub.h \
     source/datastorage/datastorage.h \
     source/datastorage/iaccount.h \
     source/datastorage/itransaction.h \
@@ -24,6 +31,9 @@ HEADERS += \
 
 SOURCES += \
         source/accounts/accountmanager.cpp \
+        source/currency/converter/converterbyrub.cpp \
+        source/currency/loader/currencyloader.cpp \
+        source/currency/parser/parserfromrub.cpp \
         source/datastorage/datastorage.cpp \
         source/main.cpp \
         source/models/accountsmodel.cpp \
