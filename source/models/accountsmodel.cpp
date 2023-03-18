@@ -35,8 +35,6 @@ QVariant AccountsModel::data(const QModelIndex &index, int role) const
         return m_accounts.at(row)->m_type;
     case iconRole:
         return m_accounts.at(row)->m_icon;
-    case colorRole:
-        return m_accounts.at(row)->m_color;
     }
 
     return QVariant();
@@ -76,5 +74,4 @@ void AccountsModel::initRoleNames()
     m_roleNames[currencyRole] = "currency";
     m_roleNames[typeRole] = "type";
     m_roleNames[iconRole] = "icon";
-    m_roleNames[colorRole] = "color";
 }

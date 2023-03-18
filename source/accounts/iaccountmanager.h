@@ -11,7 +11,6 @@ public:
                            const QString &currency,
                            const qreal amount,
                            const QString &icon,
-                           const QString &color,
                            AccountType::Type type) = 0;
 
     virtual bool removeAccount(int id) = 0;
@@ -25,7 +24,6 @@ public:
                                const QString &name,
                                const QString &currency,
                                const QString &icon,
-                               const QString &color,
                                AccountType::Type type) = 0;
 
     virtual bool addAmount(int id, qreal value) = 0;

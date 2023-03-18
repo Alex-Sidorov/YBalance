@@ -12,25 +12,24 @@ class FullAccountsModel : public QObject
 
 public:
     explicit FullAccountsModel(IAccountManager* manager, QObject *parent = nullptr);
+    virtual ~FullAccountsModel(){}
 
 
-    Q_INVOKABLE const AccountsModel* getCashAccounts() const;
-    Q_INVOKABLE const AccountsModel* getCardAccounts() const;
-    Q_INVOKABLE const AccountsModel* getDebtAccounts() const;
-    Q_INVOKABLE const AccountsModel* getSavingsAccounts() const;
+    Q_INVOKABLE AccountsModel* getCashAccounts();
+    Q_INVOKABLE AccountsModel* getCardAccounts();
+    Q_INVOKABLE AccountsModel* getDebtAccounts();
+    Q_INVOKABLE AccountsModel* getSavingsAccounts();
 
     Q_INVOKABLE bool addAccount(const QString &name,
                                 const QString &currency,
                                 const qreal amount,
                                 const QString &icon,
-                                const QString &color,
                                 AccountType::Type type);
     Q_INVOKABLE bool updateAccount(int id,
                                const qreal amount,
                                const QString &name,
                                const QString &currency,
                                const QString &icon,
-                               const QString &color,
                                AccountType::Type type);
     Q_INVOKABLE bool removeAccount(int id);
 

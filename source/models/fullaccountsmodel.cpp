@@ -2,7 +2,12 @@
 #include <QDebug>
 
 FullAccountsModel::FullAccountsModel(IAccountManager* manager, QObject *parent)
-    : QObject{parent}, m_accountManager{manager}
+    : QObject{parent},
+    m_cashAccounts{this},
+    m_cardAccounts{this},
+    m_debtAccounts{this},
+    m_savingsAccounts{this},
+    m_accountManager{manager}
 {
     if(initAccountsModels())
     {
@@ -18,32 +23,33 @@ FullAccountsModel::FullAccountsModel(IAccountManager* manager, QObject *parent)
     }
 }
 
-const AccountsModel *FullAccountsModel::getCashAccounts() const
+AccountsModel *FullAccountsModel::getCashAccounts()
 {
     return &m_cashAccounts;
 }
 
-const AccountsModel *FullAccountsModel::getCardAccounts() const
+AccountsModel *FullAccountsModel::getCardAccounts()
 {
     return &m_cardAccounts;
 }
 
-const AccountsModel *FullAccountsModel::getDebtAccounts() const
+AccountsModel *FullAccountsModel::getDebtAccounts()
 {
     return &m_debtAccounts;
 }
 
-const AccountsModel *FullAccountsModel::getSavingsAccounts() const
+AccountsModel *FullAccountsModel::getSavingsAccounts()
 {
     return &m_savingsAccounts;
 }
 
-bool FullAccountsModel::addAccount(const QString &name, const QString &currency, const qreal amount, const QString &icon, const QString &color, AccountType::Type type)
+bool FullAccountsModel::addAccount(const QString &name, const QString &currency,
+                                   const qreal amount, const QString &icon, AccountType::Type type)
 {
     if(!m_accountManager)
         return false;
 
-    auto id = m_accountManager->addAccount(name, currency, amount, icon, color, type);
+    auto id = m_accountManager->addAccount(name, currency, amount, icon, type);
     if(id == -1)
     {
         qDebug() << "Error add new account: name=" << name;
@@ -62,12 +68,13 @@ bool FullAccountsModel::addAccount(const QString &name, const QString &currency,
     return true;
 }
 
-bool FullAccountsModel::updateAccount(int id, const qreal amount, const QString &name, const QString &currency, const QString &icon, const QString &color, AccountType::Type type)
+bool FullAccountsModel::updateAccount(int id, const qreal amount, const QString &name,
+                                      const QString &currency, const QString &icon, AccountType::Type type)
 {
     if(!m_accountManager)
         return false;
 
-    auto result = m_accountManager->updateAccount(id, amount, name, currency, icon, color, type);
+    auto result = m_accountManager->updateAccount(id, amount, name, currency, icon, type);
     if(!result)
     {
         qDebug() << "Error update account: id=" << id << " name=" <<name;

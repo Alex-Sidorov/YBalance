@@ -138,16 +138,14 @@ bool DataStorage::readAccounts(QPair<AccountsList*, AccountsHash*> &accounts, QO
 
     while(query.next())
     {
-        QDateTime time = QDateTime::fromString(query.value("date").toString(), "dd.MM.yyyy hh:mm:ss");
         qreal amount = query.value("amount").toDouble();
         QString name = query.value("name").toString();
         QString currency = query.value("currency").toString();
         QString icon = query.value("icon").toString();
-        QString color = query.value("color").toString();
         int id = query.value("id").toInt();
         AccountType::Type type = static_cast<AccountType::Type>(query.value("type").toInt());
 
-        QSharedPointer<Account> account(new Account(name, currency, amount, icon, color, type, parent));
+        QSharedPointer<Account> account(new Account(name, currency, amount, icon, type, parent));
         account->m_id = id;
 
         list->append(account);
@@ -163,21 +161,20 @@ bool DataStorage::addAccount(Account *account)
         return false;
 
     QSqlQuery query(m_database);
-    query.prepare("insert into accounts (name, amount, currency, type, color, icon) "
-                  "VALUES(:1, :2, :3, :4, :5, :6);");
+    query.prepare("insert into accounts (name, amount, currency, type, icon) "
+                  "VALUES(:1, :2, :3, :4, :5);");
 
     query.bindValue(":1", account->m_name);
     query.bindValue(":2", account->m_amount);
-    query.bindValue(":4", account->m_currency);
-    query.bindValue(":5", account->m_type);
-    query.bindValue(":6", account->m_color);
-    query.bindValue(":6", account->m_icon);
+    query.bindValue(":3", account->m_currency);
+    query.bindValue(":4", account->m_type);
+    query.bindValue(":5", account->m_icon);
 
     return query.exec();
 }
 
 bool DataStorage::updateAccount(int id, const qreal amount, const QString &name, const QString &currency,
-                                const QString &icon, const QString &color, AccountType::Type type)
+                                const QString &icon, AccountType::Type type)
 {
 
     if(!m_database.isOpen())
@@ -189,17 +186,15 @@ bool DataStorage::updateAccount(int id, const qreal amount, const QString &name,
                   "amount = :2, "
                   "currency = :3, "
                   "icon = :4, "
-                  "color = :5, "
-                  "type = :6, "
-                  "where id = :7");
+                  "type = :5, "
+                  "where id = :6");
 
     query.bindValue(":1", name);
     query.bindValue(":2", amount);
     query.bindValue(":3", currency);
     query.bindValue(":4", icon);
-    query.bindValue(":5", color);
-    query.bindValue(":6", type);
-    query.bindValue(":7", id);
+    query.bindValue(":5", type);
+    query.bindValue(":6", id);
 
     return query.exec();
 }

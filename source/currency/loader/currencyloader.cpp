@@ -6,11 +6,7 @@ CurrencyLoader::CurrencyLoader(IParser *parser, QObject *parent)
     : QObject{parent}, m_parser{parser}, m_urlData(SOURCE_CURRENCY)
 {
     connect(&m_manager, &QNetworkAccessManager::finished, this, &CurrencyLoader::responseHandle);
-
-    if(loadLocalCurrency())
-        qDebug() << "Read " << m_currencies.size() << "currencies";
-    else
-        qDebug() << "Error open " << PATH_LOCAL_CURRENCY;
+    sendGetRequest();
 }
 
 QHash<QString, qreal> CurrencyLoader::getCurrencies() const
@@ -25,8 +21,7 @@ qreal CurrencyLoader::getCurrency(const QString &id) const
 
 void CurrencyLoader::refreshCurrencies()
 {
-    QNetworkRequest request(m_urlData);
-    m_manager.get(request);
+    sendGetRequest();
 }
 
 void CurrencyLoader::responseHandle(QNetworkReply *reply)
@@ -56,7 +51,12 @@ void CurrencyLoader::responseHandle(QNetworkReply *reply)
                  << QSslSocket::sslLibraryVersionString();
 
         if(m_currencies.isEmpty())
-            loadLocalCurrency();
+        {
+            if(loadLocalCurrency())
+                qDebug() << "Read " << m_currencies.size() << "currencies";
+            else
+                qDebug() << "Error open " << PATH_LOCAL_CURRENCY;
+        }
     }
 }
 
@@ -92,4 +92,10 @@ bool CurrencyLoader::saveCurrency(const QByteArray &data)
     {
         return false;
     }
+}
+
+void CurrencyLoader::sendGetRequest()
+{
+    QNetworkRequest request(m_urlData);
+    m_manager.get(request);
 }

@@ -35,7 +35,7 @@ public:
 
     virtual bool addAccount(Account * account) override;
     virtual bool updateAccount(int id, const qreal amount, const QString &name, const QString &currency,
-                               const QString &icon, const QString &color, AccountType::Type type) override;
+                               const QString &icon, AccountType::Type type) override;
     virtual bool removeAccount(int id) override;
 
     virtual bool updateAmount(int id, qreal amount) override;

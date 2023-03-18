@@ -37,6 +37,7 @@ private:
     QHash<QString, qreal> m_currencies;
     bool loadLocalCurrency();
     bool saveCurrency(const QByteArray &data);
+    void sendGetRequest();
 };
 
 #endif // CURRENCYLOADER_H

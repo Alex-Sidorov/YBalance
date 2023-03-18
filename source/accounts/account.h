@@ -33,7 +33,6 @@ class Account : public QObject
     Q_PROPERTY(QString name MEMBER m_name NOTIFY nameChanged)
     Q_PROPERTY(QString currency MEMBER m_currency NOTIFY currencyChanged)
     Q_PROPERTY(QString icon MEMBER m_icon NOTIFY iconChanged)
-    Q_PROPERTY(QString color MEMBER m_color NOTIFY colorChanged)
     Q_PROPERTY(int type READ getType NOTIFY typeChanged)
 
 
@@ -46,7 +45,6 @@ public:
             const QString &currency,
             const qreal amount,
             const QString &icon,
-            const QString &color,
             AccountType::Type type,
             QObject *parent = nullptr)
         :QObject(parent),
@@ -54,7 +52,6 @@ public:
         m_name(name),
         m_currency(currency),
         m_icon(icon),
-        m_color(color),
         m_type(type)
         {};
 
@@ -65,7 +62,6 @@ public:
     QString m_name;
     QString m_currency;
     QString m_icon;
-    QString m_color;
 
     int m_id = 0;
 
@@ -79,7 +75,6 @@ signals:
     void currencyChanged();
     void typeChanged();
     void iconChanged();
-    void colorChanged();
     void allChanged();
 };
 

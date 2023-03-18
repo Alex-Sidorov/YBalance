@@ -22,7 +22,6 @@ public:
                            const QString &currency,
                            const qreal amount,
                            const QString &icon,
-                           const QString &color,
                            AccountType::Type type) override;
 
     virtual bool removeAccount(int id) override;
@@ -36,7 +35,6 @@ public:
                                const QString &name,
                                const QString &currency,
                                const QString &icon,
-                               const QString &color,
                                AccountType::Type type) override;
 
     virtual bool addAmount(int id, qreal value) override;

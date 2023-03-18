@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QAbstractListModel>
 #include <QSharedPointer>
+#include <QHash>
 
 #include "../accounts/iaccountmanager.h"
 
@@ -17,8 +18,7 @@ class AccountsModel : public QAbstractListModel
         amountRole,
         currencyRole,
         typeRole,
-        iconRole,
-        colorRole,
+        iconRole
     };
 
 public:

@@ -14,10 +14,9 @@ int AccountManager::addAccount(const QString &name,
                                const QString &currency,
                                const qreal amount,
                                const QString &icon,
-                               const QString &color,
                                AccountType::Type type)
 {
-    QSharedPointer<Account> account(new Account(name, currency, amount, icon, color, type, this));
+    QSharedPointer<Account> account(new Account(name, currency, amount, icon, type, this));
 
     if(m_accounts.size())
         account->m_id = m_accounts.last()->m_id + 1;
@@ -67,7 +66,6 @@ bool AccountManager::updateAccount(int id,
                                    const QString &name,
                                    const QString &currency,
                                    const QString &icon,
-                                   const QString &color,
                                    AccountType::Type type)
 {
     auto account = m_hashAccounts.value(id, QSharedPointer<Account>(nullptr));
@@ -75,14 +73,13 @@ bool AccountManager::updateAccount(int id,
     if(!m_dataStorage || account.isNull())
         return false;
 
-    if(!m_dataStorage->updateAccount(id, amount, name, currency, icon, color, type))
+    if(!m_dataStorage->updateAccount(id, amount, name, currency, icon, type))
         return false;
 
     account->m_amount = amount;
     account->m_name = name;;
     account->m_currency = currency;
     account->m_icon = icon;
-    account->m_color = color;
     account->m_type = type;
 
     return true;
