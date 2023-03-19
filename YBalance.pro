@@ -44,7 +44,8 @@ SOURCES += \
 TRANSLATIONS += \
     translations/YBalance_en_US.ts
 
-RESOURCES += qml.qrc
+RESOURCES += qml.qrc \
+    icons.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH = qml/

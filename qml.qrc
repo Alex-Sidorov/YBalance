@@ -6,5 +6,9 @@
         <file>qml/pages/TransactionPage.qml</file>
         <file>qml/widgets/DelegateAccount.qml</file>
         <file>qml/widgets/AccountTypeTitle.qml</file>
+        <file>qml/widgets/ColoredIcon.qml</file>
+        <file>qml/widgets/AccountOptions.qml</file>
+        <file>qml/widgets/AddAccountPopup.qml</file>
+        <file>qml/widgets/CustomButton.qml</file>
     </qresource>
 </RCC>

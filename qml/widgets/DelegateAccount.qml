@@ -1,12 +1,24 @@
 import QtQuick 2.10
 
 Rectangle {
+    id: root
+
     width: parent.width
 
     property var item
     property bool isLast: false
 
+    signal clicked
+
     color: "transparent"
+
+    MouseArea {
+        anchors.fill: parent
+
+        onReleased: {
+            root.clicked()
+        }
+    }
 
     Rectangle {
         id: icon
