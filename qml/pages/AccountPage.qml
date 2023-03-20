@@ -2,6 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 
 import "../widgets" as Widgets
+import "../popups" as Popups
 
 Item {
     id:root
@@ -9,19 +10,33 @@ Item {
     width: parent.width
     height: parent.height
 
-    property int sizeItemAccount: 50
+    property int sizeItemAccount: 60
 
-    StackView {
-        id: view
-
+    ScrollView {
         anchors.fill: parent
 
-        Rectangle {
-            anchors.fill: parent
+        contentHeight: itemsArea.height
+        contentWidth: parent.width
+
+        background: Rectangle {
             color: "#635e5d"
+        }
+
+        clip: true
+
+        ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+
+        Rectangle {
+            id: itemsArea
+
+            width: childrenRect.width
+            height: childrenRect.height
+
+            color: "transparent"
 
             Column {
-                anchors.fill: parent
+                width: childrenRect.width
+                height: childrenRect.height
 
                 Widgets.AccountTypeTitle {
                     title: "CARDS"
@@ -33,10 +48,12 @@ Item {
 
                     clip: true
 
-                    property int count: model.rowCount()
+                    interactive: false
 
-                    model: accountsModel.getCashAccounts()
-                    width: parent.width
+                    property int count: model.count
+
+                    model: accountsModel.getCardAccounts()
+                    width: root.width
                     height: count * sizeItemAccount
 
                     delegate: Widgets.DelegateAccount {
@@ -62,10 +79,12 @@ Item {
 
                     clip: true
 
-                    property int count: model.rowCount()
+                    interactive: false
 
-                    model: accountsModel.getCardAccounts()
-                    width: parent.width
+                    property int count: model.count
+
+                    model: accountsModel.getCashAccounts()
+                    width: root.width
                     height: count * sizeItemAccount
 
                     delegate: Widgets.DelegateAccount {
@@ -91,10 +110,12 @@ Item {
 
                     clip: true
 
-                    property int count: model.rowCount()
+                    property int count: model.count
+
+                    interactive: false
 
                     model: accountsModel.getSavingsAccounts()
-                    width: parent.width
+                    width: root.width
                     height: count * sizeItemAccount
 
                     delegate: Widgets.DelegateAccount {
@@ -120,10 +141,12 @@ Item {
 
                     clip: true
 
-                    property int count: model.rowCount()
+                    interactive: false
+
+                    property int count: model.count
 
                     model: accountsModel.getDebtAccounts()
-                    width: parent.width
+                    width: root.width
                     height: count * sizeItemAccount
 
                     delegate: Widgets.DelegateAccount {
@@ -143,8 +166,8 @@ Item {
 
                     color: "transparent"
 
-                    width: parent.width
-                    height: 50
+                    width: root.width
+                    height: 100
 
                     Widgets.ColoredIcon {
                         id: icon
@@ -153,6 +176,9 @@ Item {
                         anchors.topMargin: 5
                         anchors.left: parent.left
                         anchors.leftMargin: 5
+
+                        imageHeight: 50
+                        imageWidth: 50
 
                         source: "qrc:/icons/plus.svg"
                         color: "#c5c9c3"
@@ -163,6 +189,8 @@ Item {
                        anchors.verticalCenter: icon.verticalCenter
                        anchors.left: icon.right
                        anchors.leftMargin: 10
+
+                       font.pixelSize: 15
 
                        text: "Add account"
                        color: "#c5c9c3"
@@ -180,18 +208,21 @@ Item {
         }
     }
 
+    Popups.AccountCreator {
+        id: accountCreator
 
+    }
 
-    Widgets.AddAccountPopup {
+    Popups.AddAccountPopup {
         id: addAccountPopup
 
         onCreateAccount: {
-            console.log(type)
-            //view.push()
+            accountCreator.accountType = type
+            accountCreator.open()
         }
     }
 
-    Widgets.AccountOptions {
+    Popups.AccountOptions {
         id: drawer
     }
 

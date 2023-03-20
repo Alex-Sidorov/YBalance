@@ -24,13 +24,13 @@ public:
                                 const QString &currency,
                                 const qreal amount,
                                 const QString &icon,
-                                AccountType::Type type);
+                                int type);
     Q_INVOKABLE bool updateAccount(int id,
                                const qreal amount,
                                const QString &name,
                                const QString &currency,
                                const QString &icon,
-                               AccountType::Type type);
+                               int type);
     Q_INVOKABLE bool removeAccount(int id);
 
 private:
@@ -45,7 +45,6 @@ private:
 
     void addAccount(const QSharedPointer<Account> &account);
     void removeAccount(const QSharedPointer<Account> &account);
-
 };
 
 #endif // FULLACCOUNTSMODEL_H

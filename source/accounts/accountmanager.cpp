@@ -21,7 +21,7 @@ int AccountManager::addAccount(const QString &name,
     if(m_accounts.size())
         account->m_id = m_accounts.last()->m_id + 1;
 
-    if(m_dataStorage && m_dataStorage->addAccount(account.data()))
+    if(m_dataStorage && !m_dataStorage->addAccount(account.data()))
         return -1;
 
     m_accounts << account;

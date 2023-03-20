@@ -1,6 +1,7 @@
 #include "datastorage.h"
 #include <QSqlQuery>
 #include <QSqlField>
+#include <QSqlError>
 #include <QFile>
 #include <QRegularExpression>
 #include <QDebug>
@@ -167,8 +168,10 @@ bool DataStorage::addAccount(Account *account)
     query.bindValue(":1", account->m_name);
     query.bindValue(":2", account->m_amount);
     query.bindValue(":3", account->m_currency);
-    query.bindValue(":4", account->m_type);
+    query.bindValue(":4", static_cast<int>(account->m_type));
     query.bindValue(":5", account->m_icon);
+
+
 
     return query.exec();
 }
@@ -193,7 +196,7 @@ bool DataStorage::updateAccount(int id, const qreal amount, const QString &name,
     query.bindValue(":2", amount);
     query.bindValue(":3", currency);
     query.bindValue(":4", icon);
-    query.bindValue(":5", type);
+    query.bindValue(":5", static_cast<int>(type));
     query.bindValue(":6", id);
 
     return query.exec();

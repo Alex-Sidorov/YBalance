@@ -11,7 +11,6 @@ Rectangle {
     signal clicked
 
     color: "transparent"
-
     MouseArea {
         anchors.fill: parent
 
@@ -24,6 +23,7 @@ Rectangle {
         id: icon
 
         width: height
+
 
         anchors.left: parent.left
         anchors.bottom: parent.bottom
@@ -39,6 +39,8 @@ Rectangle {
        text: item.name
        color: "white"
 
+       font.pixelSize: 13
+
        anchors.left: icon.right
        anchors.top: icon.top
 
@@ -51,6 +53,7 @@ Rectangle {
        color: "#7bcf61"
 
        font.bold: true
+       font.pixelSize: 15
 
        anchors.left: name.left
        anchors.bottom: icon.bottom
@@ -60,6 +63,8 @@ Rectangle {
        id: currency
        text: item.currency
        color: "#7bcf61"
+
+       font.pixelSize: 15
 
        anchors.left: amount.right
        anchors.verticalCenter: amount.verticalCenter

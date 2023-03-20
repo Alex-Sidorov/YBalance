@@ -44,12 +44,12 @@ AccountsModel *FullAccountsModel::getSavingsAccounts()
 }
 
 bool FullAccountsModel::addAccount(const QString &name, const QString &currency,
-                                   const qreal amount, const QString &icon, AccountType::Type type)
+                                   const qreal amount, const QString &icon, int type)
 {
     if(!m_accountManager)
         return false;
 
-    auto id = m_accountManager->addAccount(name, currency, amount, icon, type);
+    auto id = m_accountManager->addAccount(name, currency, amount, icon, static_cast<AccountType::Type>(type));
     if(id == -1)
     {
         qDebug() << "Error add new account: name=" << name;
@@ -69,12 +69,12 @@ bool FullAccountsModel::addAccount(const QString &name, const QString &currency,
 }
 
 bool FullAccountsModel::updateAccount(int id, const qreal amount, const QString &name,
-                                      const QString &currency, const QString &icon, AccountType::Type type)
+                                      const QString &currency, const QString &icon, int type)
 {
     if(!m_accountManager)
         return false;
 
-    auto result = m_accountManager->updateAccount(id, amount, name, currency, icon, type);
+    auto result = m_accountManager->updateAccount(id, amount, name, currency, icon, static_cast<AccountType::Type>(type));
     if(!result)
     {
         qDebug() << "Error update account: id=" << id << " name=" <<name;

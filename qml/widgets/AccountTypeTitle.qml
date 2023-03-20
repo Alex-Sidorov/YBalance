@@ -14,11 +14,13 @@ Rectangle {
        anchors.top: parent.top
        anchors.bottom: parent.bottom
 
+       font.pixelSize: 15
+
        anchors.leftMargin: 10
        anchors.topMargin: 10
        anchors.bottomMargin: 20
 
-       text: "CASH"
+       text: "Title"
        color: "#c5c9c3"
     }
 }

@@ -20,7 +20,6 @@ public:
     virtual qreal getCurrency(const QString &id) const override;
     virtual void refreshCurrencies() override;
 
-
 private slots:
     void responseHandle(QNetworkReply *reply);
 

@@ -50,6 +50,8 @@ void AccountsModel::addAccount(const QSharedPointer<Account> &account)
     beginInsertRows(QModelIndex(), m_accounts.size(), m_accounts.size());
     m_accounts.push_back(account);
     endInsertRows();
+
+    emit updatedModel();
 }
 
 void AccountsModel::removeAccount(int id)
@@ -61,6 +63,8 @@ void AccountsModel::removeAccount(int id)
             beginRemoveRows(QModelIndex(), i, i);
             m_accounts.removeAt(i);
             endRemoveRows();
+
+            emit updatedModel();
             break;
         }
     }

@@ -1,8 +1,8 @@
 #include "converterbyrub.h"
 #include <QDebug>
 
-ConverterByRUB::ConverterByRUB(ICurrencyLoader *currencyLoader, QObject *parent)
-    : QObject{parent}, m_currencyLoader{currencyLoader}
+ConverterByRUB::ConverterByRUB(ICurrencyLoader *currencyLoader)
+    : m_currencyLoader{currencyLoader}
 {}
 
 qreal ConverterByRUB::convert(const QString &from, const QString &to, const qreal value) const

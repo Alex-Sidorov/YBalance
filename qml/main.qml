@@ -20,12 +20,15 @@ Window {
 
         TabButton {
             text: qsTr("Accounts")
+            font.pixelSize: 15
         }
         TabButton {
             text: qsTr("Categories")
+            font.pixelSize: 15
         }
         TabButton {
             text: qsTr("Transaction")
+            font.pixelSize: 15
         }
     }
 

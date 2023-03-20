@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>icons/plus.svg</file>
+        <file>icons/combo_indicator_down.svg</file>
+        <file>icons/combo_indicator_up.svg</file>
     </qresource>
 </RCC>

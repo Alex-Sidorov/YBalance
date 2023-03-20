@@ -20,6 +20,8 @@ HEADERS += \
     source/currency/loader/icurrencyloader.h \
     source/currency/parser/iparser.h \
     source/currency/parser/parserfromrub.h \
+    source/currency/storage/currencystorage.h \
+    source/currency/storage/icurrencystorage.h \
     source/datastorage/datastorage.h \
     source/datastorage/iaccount.h \
     source/datastorage/itransaction.h \
@@ -35,6 +37,7 @@ SOURCES += \
         source/currency/converter/converterbyrub.cpp \
         source/currency/loader/currencyloader.cpp \
         source/currency/parser/parserfromrub.cpp \
+        source/currency/storage/currencystorage.cpp \
         source/datastorage/datastorage.cpp \
         source/main.cpp \
         source/models/accountsmodel.cpp \

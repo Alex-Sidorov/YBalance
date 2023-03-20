@@ -10,6 +10,7 @@
 #include "accounts/accountmanager.h"
 #include "datastorage/datastorage.h"
 #include "models/fullaccountsmodel.h"
+#include "currency/storage/currencystorage.h"
 
 #include "currency/loader/currencyloader.h"//
 #include "currency/parser/parserfromrub.h"//
@@ -36,6 +37,7 @@ int main(int argc, char *argv[])
     TransactionManager transactionManager(&data);
     AccountManager accountsManager(&data);
     FullAccountsModel accountsModel(&accountsManager);
+    CurrencyStorage currencyStorage;
 
     ParserFromRUB parser;
     CurrencyLoader loader(&parser);
@@ -56,6 +58,7 @@ int main(int argc, char *argv[])
     std::unique_ptr<QQmlApplicationEngine> engine = std::make_unique<QQmlApplicationEngine>();
 
     engine->rootContext()->setContextProperty(QLatin1String("accountsModel"), &accountsModel);
+    engine->rootContext()->setContextProperty(QLatin1String("currencyStorage"), &currencyStorage);
 
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
     QObject::connect(engine.get(), &QQmlApplicationEngine::objectCreated,

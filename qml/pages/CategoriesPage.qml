@@ -1,5 +1,5 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.0
+import QtQuick 2.12
+import QtQuick.Controls 2.12
 
 Item {
 
@@ -10,20 +10,21 @@ Item {
 
 
 
-    Row {
-       Button {
-           onPressed: {
-               mymodel.add()
-           }
-       }
-       Button {
-           onPressed: {
-               mymodel.remove()
-           }
-       }
+    ScrollView {
+        anchors.fill: parent
+
+        ListView {
+            model: 200
+            delegate: ItemDelegate {
+                text: "Item " + index
+
+                required property int index
+            }
+        }
     }
 
-    Rectangle {
+
+    /*Rectangle {
         anchors.fill: parent
         color: "Red"
 
@@ -32,6 +33,6 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             text: "Categories"
         }
-    }
+    }*/
 
 }

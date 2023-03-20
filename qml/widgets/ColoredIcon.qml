@@ -5,8 +5,8 @@ Item {
     property alias source: img.source
     property alias color: overlay.color
 
-    property alias imageWidth: img.width
-    property alias imageHeight: img.height
+    property alias imageWidth: img.sourceSize.height
+    property alias imageHeight: img.sourceSize.width
 
     width: childrenRect.width
     height: childrenRect.height

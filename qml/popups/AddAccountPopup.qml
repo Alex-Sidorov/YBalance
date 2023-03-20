@@ -1,10 +1,15 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 
+import AccountType 1.0
+
+import "../widgets" as Widgets
+
 Popup {
     id: root
 
-    property int selectedItem: 1
+    property int selectedItem: AccountType.CASH
+
     signal createAccount(int type)
 
     anchors.centerIn: parent
@@ -14,7 +19,7 @@ Popup {
     modal: true
 
     onClosed: {
-        selectedItem = 1
+        selectedItem = AccountType.CASH
         first.checked = true
     }
 
@@ -35,45 +40,50 @@ Popup {
                 id: first
                 checked: true
                 text: qsTr("Cash")
+                font.pixelSize: 15
 
                 onCheckedChanged: {
                     if(checked)
-                        root.selectedItem = 1
+                        root.selectedItem = AccountType.CASH
                 }
             }
 
             RadioButton {
                 text: qsTr("Card")
+                font.pixelSize: 15
 
                 onCheckedChanged: {
                     if(checked)
-                        root.selectedItem = 2
+                        root.selectedItem = AccountType.CARD
                 }
             }
 
             RadioButton {
                 text: qsTr("Debt")
+                font.pixelSize: 15
 
                 onCheckedChanged: {
                     if(checked)
-                        root.selectedItem = 3
+                        root.selectedItem = AccountType.DEBT
                 }
             }
 
             RadioButton {
                 text: qsTr("Saving")
+                font.pixelSize: 15
 
                 onCheckedChanged: {
                     if(checked)
-                        root.selectedItem = 4
+                        root.selectedItem = AccountType.SAVINGS
                 }
             }
         }
 
-        CustomButton {
+        Widgets.CustomButton {
             id: closeButton
 
             text: "Close"
+            textSize: 20
 
             color: "#635e5d"
 
@@ -91,10 +101,11 @@ Popup {
             }
         }
 
-        CustomButton {
+        Widgets.CustomButton {
             id: okButton
 
             text: "Ok"
+            textSize: 20
 
             color: "#635e5d"
 
