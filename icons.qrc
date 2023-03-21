@@ -3,5 +3,58 @@
         <file>icons/plus.svg</file>
         <file>icons/combo_indicator_down.svg</file>
         <file>icons/combo_indicator_up.svg</file>
+        <file>icons/accounts_icon/bag_1.svg</file>
+        <file>icons/accounts_icon/bag_2.svg</file>
+        <file>icons/accounts_icon/bank-1305670.svg</file>
+        <file>icons/accounts_icon/bond-1305676.svg</file>
+        <file>icons/accounts_icon/cash_1.svg</file>
+        <file>icons/accounts_icon/coins-1305718.svg</file>
+        <file>icons/accounts_icon/decision-making-1305715.svg</file>
+        <file>icons/accounts_icon/employee-salary-1305716.svg</file>
+        <file>icons/accounts_icon/exchange-bitcoin-1305677.svg</file>
+        <file>icons/accounts_icon/financial-goal-1305678.svg</file>
+        <file>icons/accounts_icon/global-economy-1305710.svg</file>
+        <file>icons/accounts_icon/gold-investment-1305712.svg</file>
+        <file>icons/accounts_icon/home-investment-1305711.svg</file>
+        <file>icons/accounts_icon/invest-in-diamond-1305713.svg</file>
+        <file>icons/accounts_icon/investment-deal-1305708.svg</file>
+        <file>icons/accounts_icon/investment-decision-1305707.svg</file>
+        <file>icons/accounts_icon/investment-idea-1305706.svg</file>
+        <file>icons/accounts_icon/investment-partnership-1305705.svg</file>
+        <file>icons/accounts_icon/investment-process-1305690.svg</file>
+        <file>icons/accounts_icon/investment-report-1305704.svg</file>
+        <file>icons/accounts_icon/investment-thinking-1305703.svg</file>
+        <file>icons/accounts_icon/investor-meetup-1305685.svg</file>
+        <file>icons/accounts_icon/launch-1305686.svg</file>
+        <file>icons/accounts_icon/loss-1305674.svg</file>
+        <file>icons/accounts_icon/mobile-payment-1305700.svg</file>
+        <file>icons/accounts_icon/money-1305695.svg</file>
+        <file>icons/accounts_icon/money-bag-1305699.svg</file>
+        <file>icons/accounts_icon/money-flow-1305697.svg</file>
+        <file>icons/accounts_icon/money-management-1305701.svg</file>
+        <file>icons/accounts_icon/money-plant-1305696.svg</file>
+        <file>icons/accounts_icon/money-sack-1305698.svg</file>
+        <file>icons/accounts_icon/money-security-1305683.svg</file>
+        <file>icons/accounts_icon/money-security-1305688.svg</file>
+        <file>icons/accounts_icon/money-structure-1305682.svg</file>
+        <file>icons/accounts_icon/multiple-currency-1305694.svg</file>
+        <file>icons/accounts_icon/multiple-investment-1305693.svg</file>
+        <file>icons/accounts_icon/office-1305719.svg</file>
+        <file>icons/accounts_icon/online-payment-1305702.svg</file>
+        <file>icons/accounts_icon/partnership-1305692.svg</file>
+        <file>icons/accounts_icon/pinky.svg</file>
+        <file>icons/accounts_icon/process-1305691.svg</file>
+        <file>icons/accounts_icon/profit-1305673.svg</file>
+        <file>icons/accounts_icon/profit-chart-1305689.svg</file>
+        <file>icons/accounts_icon/puzzle-1305687.svg</file>
+        <file>icons/accounts_icon/savings-1305672.svg</file>
+        <file>icons/accounts_icon/searching-earnings-1305684.svg</file>
+        <file>icons/accounts_icon/sub-investment-1305671.svg</file>
+        <file>icons/accounts_icon/timer-1305681.svg</file>
+        <file>icons/accounts_icon/visibility-1305680.svg</file>
+        <file>icons/accounts_icon/wallet_1.svg</file>
+        <file>icons/accounts_icon/wallet_2.svg</file>
+        <file>icons/accounts_icon/wallet-1305679.svg</file>
+        <file>icons/close.svg</file>
     </qresource>
 </RCC>

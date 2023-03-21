@@ -12,6 +12,10 @@ Item {
 
     property int sizeItemAccount: 60
 
+    Component.onCompleted: {
+        console.log()
+    }
+
     ScrollView {
         anchors.fill: parent
 

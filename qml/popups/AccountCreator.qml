@@ -9,6 +9,7 @@ Popup {
     id: root
 
     property int accountType: AccountType.NONE
+    property string icon: "qrc:/icons/accounts_icon/wallet_1.svg"
 
     anchors.centerIn: parent
     width: parent.width * 0.6
@@ -19,6 +20,19 @@ Popup {
     onClosed: {
         nameField.text = ""
         amountField.text = ""
+        currency.index = 0
+    }
+
+    SelecterIcons {
+        id: selecter
+    }
+
+    Connections {
+        target: selecter
+
+        function onSelected(image) {
+           icon = image
+        }
     }
 
     background: Rectangle {
@@ -58,12 +72,28 @@ Popup {
                 }
 
                 Rectangle {
+                    color: "transparent"
                     width: height
                     height: root.height * 0.1
+
+                    Widgets.ColoredIcon {
+                        imageHeight: parent.height
+                        imageWidth: parent.width
+
+                        color: "#282b29"
+
+                        source: icon
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+
+                        onReleased: {
+                            selecter.open()
+                        }
+                    }
                 }
             }
-
-
 
             Widgets.CustomComboBox{
                 id: type
@@ -163,7 +193,7 @@ Popup {
             anchors.bottomMargin: 10
 
             onClicked: {
-                accountsModel.addAccount(nameField.text, currency.value, amountField.text, "", type.index + 1)
+                accountsModel.addAccount(nameField.text, currency.value, amountField.text, root.icon, type.index + 1)
                 close()
             }
         }

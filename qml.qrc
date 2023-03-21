@@ -13,5 +13,6 @@
         <file>qml/popups/AccountCreator.qml</file>
         <file>qml/widgets/CustomTextField.qml</file>
         <file>qml/widgets/CustomComboBox.qml</file>
+        <file>qml/popups/SelecterIcons.qml</file>
     </qresource>
 </RCC>

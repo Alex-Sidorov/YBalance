@@ -1,5 +1,7 @@
 import QtQuick 2.10
 
+import "../widgets" as Widgets
+
 Rectangle {
     id: root
 
@@ -23,6 +25,19 @@ Rectangle {
         id: icon
 
         width: height
+
+        color: "transparent"
+
+        Widgets.ColoredIcon {
+            imageHeight: parent.height
+            imageWidth: parent.width
+
+            anchors.centerIn: parent
+
+            color: "white"
+
+            source: item.icon
+        }
 
 
         anchors.left: parent.left

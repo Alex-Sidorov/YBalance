@@ -1,6 +1,8 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 
+import "../widgets" as Widgets
+
 Item {
 
     id:root
@@ -10,18 +12,7 @@ Item {
 
 
 
-    ScrollView {
-        anchors.fill: parent
 
-        ListView {
-            model: 200
-            delegate: ItemDelegate {
-                text: "Item " + index
-
-                required property int index
-            }
-        }
-    }
 
 
     /*Rectangle {
