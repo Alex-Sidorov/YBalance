@@ -14,6 +14,8 @@ CONFIG += c++11 c++14 c++17
 HEADERS += \
     source/accounts/account.h \
     source/accounts/accountmanager.h \
+    source/categories/category.h \
+    source/categories/icategoriesmanager.h \
     source/currency/converter/converterbyrub.h \
     source/currency/converter/iconverter.h \
     source/currency/loader/currencyloader.h \
@@ -24,8 +26,10 @@ HEADERS += \
     source/currency/storage/icurrencystorage.h \
     source/datastorage/datastorage.h \
     source/datastorage/iaccount.h \
+    source/datastorage/icategories.h \
     source/datastorage/itransaction.h \
     source/models/accountsmodel.h \
+    source/models/categories/categoriesmodel.h \
     source/models/fullaccountsmodel.h \
     source/transactions/itransactionsmanager.h \
     source/transactions/transaction.h \
@@ -41,6 +45,7 @@ SOURCES += \
         source/datastorage/datastorage.cpp \
         source/main.cpp \
         source/models/accountsmodel.cpp \
+        source/models/categories/categoriesmodel.cpp \
         source/models/fullaccountsmodel.cpp \
         source/transactions/transactionmanager.cpp
 

@@ -137,14 +137,16 @@ bool DataStorage::readAccounts(QPair<AccountsList*, AccountsHash*> &accounts, QO
     if(!query.exec())
         return false;
 
+    list->reserve(query.size());
+
     while(query.next())
     {
-        qreal amount = query.value("amount").toDouble();
-        QString name = query.value("name").toString();
-        QString currency = query.value("currency").toString();
-        QString icon = query.value("icon").toString();
-        int id = query.value("id").toInt();
-        AccountType::Type type = static_cast<AccountType::Type>(query.value("type").toInt());
+        const qreal amount = query.value("amount").toDouble();
+        const QString name = query.value("name").toString();
+        const QString currency = query.value("currency").toString();
+        const QString icon = query.value("icon").toString();
+        const int id = query.value("id").toInt();
+        const AccountType::Type type = static_cast<AccountType::Type>(query.value("type").toInt());
 
         QSharedPointer<Account> account(new Account(name, currency, amount, icon, type, parent));
         account->m_id = id;
@@ -170,8 +172,6 @@ bool DataStorage::addAccount(Account *account)
     query.bindValue(":3", account->m_currency);
     query.bindValue(":4", static_cast<int>(account->m_type));
     query.bindValue(":5", account->m_icon);
-
-
 
     return query.exec();
 }
@@ -229,6 +229,66 @@ bool DataStorage::updateAmount(int id, qreal amount)
     return query.exec();
 }
 
+bool DataStorage::addCategory(const QSharedPointer<Category> &category)
+{
+    if(category.isNull() || !m_database.isOpen())
+        return false;
+
+    QSqlQuery query(m_database);
+    query.prepare("insert into category (name, currency, isIncome, icon) "
+                  "VALUES(:1, :2, :3, :4);");
+
+    query.bindValue(":1", category->m_name);
+    query.bindValue(":2", category->m_currency);
+    query.bindValue(":3", category->m_isIncome);
+    query.bindValue(":4", category->m_icon);
+    return query.exec();
+
+}
+
+bool DataStorage::removeCategory(const int id)
+{
+    if(!m_database.isOpen())
+        return false;
+
+    QSqlQuery query(m_database);
+    query.prepare("delete from category WHERE id = :1");
+
+    query.bindValue(":1", id);
+
+    return query.exec();
+}
+
+bool DataStorage::updateCategory(const int id, const QString &name, const QString &currency, const QString &icon, const bool isIncome)
+{
+    if(!m_database.isOpen())
+        return false;
+
+    QSqlQuery query(m_database);
+    query.prepare("UPDATE category SET name = :1, currency = :2, isIncome = :3, icon = :4 where id = :5");
+
+    query.bindValue(":1", name);
+    query.bindValue(":2", currency);
+    query.bindValue(":3", isIncome);
+    query.bindValue(":4", icon);
+    query.bindValue(":5", id);
+
+    return query.exec();
+}
+
+void DataStorage::getCategories(QPair< CategoryList*, CategoryHash*> &categories, bool isIncome, QObject* parent)
+{
+    auto [list, hash] = categories;
+    if(!m_database.isOpen())
+        return;
+
+    QSqlQuery query(m_database);
+    query.prepare(QString("SELECT * FROM category where isIncome = %1").arg(isIncome));
+
+    if(query.exec())
+        parseCategories(query, list, hash, parent);
+}
+
 bool DataStorage::execScript()
 {
     QFile file(BASE_SCRIPT);
@@ -242,7 +302,7 @@ bool DataStorage::execScript()
     file.close();
 
     script.replace(QRegularExpression("[\\n|\\r|\\t]+"), " ");
-    QStringList requests = script.split(';', QString::SkipEmptyParts);
+    QStringList requests = script.split(';', Qt::SkipEmptyParts);
 
     QSqlQuery query(m_database);
     foreach(const auto &request, requests)
@@ -256,20 +316,42 @@ bool DataStorage::execScript()
 
 void DataStorage::readTransactions(QSqlQuery &query, QHash<int, QList<QSharedPointer<Transaction> > > &transactions, QObject* parent)
 {
+    transactions.reserve(query.size());
+
     while(query.next())
     {
-        QDateTime time = QDateTime::fromString(query.value("date").toString(), "dd.MM.yyyy hh:mm:ss");
-        qreal amount = query.value("amount").toDouble();
-        QString text = query.value("text").toString();
-        bool type = query.value("type").toBool();
-        int id = query.value("id").toInt();
-        int account = query.value("account").toInt();
-        int category = query.value("category").toInt();
+        const QDateTime time = QDateTime::fromString(query.value("date").toString(), "dd.MM.yyyy hh:mm:ss");
+        const qreal amount = query.value("amount").toDouble();
+        const QString text = query.value("text").toString();
+        const bool type = query.value("type").toBool();
+        const int id = query.value("id").toInt();
+        const int account = query.value("account").toInt();
+        const int category = query.value("category").toInt();
 
         QSharedPointer<Transaction> transaction(new Transaction(category, account, time, text, amount, type, parent));
         transaction->m_id = id;
 
         transactions[id] << transaction;
+    }
+}
+
+void DataStorage::parseCategories(QSqlQuery &query, CategoryList* list, CategoryHash* hash, QObject *parent)
+{
+    list->reserve(query.size());
+
+    while(query.next())
+    {
+        const QString name = query.value("name").toString();
+        const QString icon = query.value("icon").toString();
+        const QString currency = query.value("currency").toString();
+        const bool isIncome = query.value("isIncome").toBool();
+        const int id = query.value("id").toInt();
+
+        QSharedPointer<Category> category(new Category(name, currency, icon, isIncome, parent));
+        category->m_id = id;
+
+        list->append(category);
+        hash->insert(id, category);
     }
 }
 

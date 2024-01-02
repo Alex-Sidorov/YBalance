@@ -11,10 +11,12 @@
 #include "datastorage/datastorage.h"
 #include "models/fullaccountsmodel.h"
 #include "currency/storage/currencystorage.h"
+#include "categories/category.h"
 
 #include "currency/loader/currencyloader.h"//
 #include "currency/parser/parserfromrub.h"//
 #include "currency/converter/converterbyrub.h"//
+
 //#include <QLocale>
 //#include <QTranslator>
 
@@ -32,6 +34,7 @@ int main(int argc, char *argv[])
     qmlRegisterAnonymousType<Account>("Account", 1);
     qmlRegisterAnonymousType<Transaction>("Transaction", 1);
     qmlRegisterAnonymousType<AccountsModel>("AccountsModel", 1);
+    qmlRegisterAnonymousType<Category>("AccountsModel", 1);
 
     DataStorage data;
     TransactionManager transactionManager(&data);

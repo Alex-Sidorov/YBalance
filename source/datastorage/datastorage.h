@@ -3,13 +3,14 @@
 
 #include "itransaction.h"
 #include "iaccount.h"
+#include "icategories.h"
 
 #include <QList>
 #include <QSharedPointer>
 #include <QHash>
 #include <QSqlDatabase>
 
-class DataStorage : public ITransaction, public IAccount
+class DataStorage : public ITransaction, public IAccount, public ICategories
 {
 public:
 
@@ -40,6 +41,11 @@ public:
 
     virtual bool updateAmount(int id, qreal amount) override;
 
+    virtual bool addCategory(const QSharedPointer<Category> &category) override;
+    virtual bool removeCategory(const int id) override;
+    virtual bool updateCategory(const int id, const QString &name, const QString &currency, const QString &icon, const bool isIncome) override;
+    virtual void getCategories(QPair< CategoryList*, CategoryHash*> &categories, bool isIncome, QObject* parent = nullptr) override;
+
     DataStorage();
     virtual ~DataStorage();
 
@@ -50,9 +56,12 @@ private:
     const QString BASE_SCRIPT = "database/database.sql";
 
     bool execScript();
+
     void readTransactions(QSqlQuery &query,
                           QHash<int, QList<QSharedPointer<Transaction>>> &transactions,
                           QObject* parent = nullptr);
+
+    void parseCategories(QSqlQuery &query, CategoryList* list, CategoryHash* hash, QObject *parent);
 };
 
 #endif // DATASTORAGE_H

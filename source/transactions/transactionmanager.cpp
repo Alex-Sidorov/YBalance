@@ -68,7 +68,7 @@ QList<QSharedPointer<Transaction> > TransactionManager::getIncomeTransactions() 
 
 QList<QSharedPointer<Transaction> > TransactionManager::getExpensesTransactions() const
 {
-    return getTransactions(m_currentCategory, true);
+    return getTransactions(m_currentCategory, false);
 }
 
 QList<QSharedPointer<Transaction>> TransactionManager::getTransactions(int category, bool isIncome) const
